@@ -2,8 +2,8 @@ from aiogram import types
 from aiogram.enums import ChatMemberStatus
 from aiogram.filters import Filter
 
-from data.config import GROUP_CHAT_ID
-from loader import bot
+from backend.tgbot.data.config import GROUP_CHAT_ID
+from backend.tgbot.loader import bot
 
 
 class IsSubscribed(Filter):

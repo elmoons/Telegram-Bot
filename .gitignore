@@ -5,4 +5,4 @@
 *.json
 *.pyc
 *.txt
-config.json
+appsettings.json

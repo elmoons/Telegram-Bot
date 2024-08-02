@@ -1,8 +1,8 @@
 from aiogram import types, Router, F
 from aiogram.filters import Command
-from filters.is_private import IsChatPrivate
-from filters.is_subscribed import IsSubscribed
-from keyboards.make_keyboard import get_startup_inline_keyboard_markup, get_web_app_inline_keyboard_markup
+from backend.tgbot.filters.is_private import IsChatPrivate
+from backend.tgbot.filters.is_subscribed import IsSubscribed
+from backend.tgbot.keyboards.make_keyboard import get_startup_inline_keyboard_markup, get_web_app_inline_keyboard_markup
 
 router = Router()
 

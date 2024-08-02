@@ -1,6 +1,6 @@
 import asyncio
 
-from handlers import common
+from backend.tgbot.handlers import common
 from loader import dispatcher, bot
 
 

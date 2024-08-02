@@ -1,6 +1,6 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
 from aiogram.utils.keyboard import InlineKeyboardBuilder
-from data.config import GROUP_CHAT_URL, WEB_APP_URL
+from backend.tgbot.data.config import GROUP_CHAT_URL, WEB_APP_URL
 
 
 def get_startup_inline_keyboard_markup() -> InlineKeyboardMarkup:
