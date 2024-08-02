@@ -1,6 +1,6 @@
-from data.get_config import get_config
+from backend.tgbot.data.get_config import get_config
 
-config_file_name = "config.json"
+config_file_name = "appsettings.json"
 config = get_config(config_file_name)
 
 BOT_TOKEN = config["bot_token"]
