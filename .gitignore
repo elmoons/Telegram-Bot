@@ -1,4 +1,8 @@
 .venv/*
 .idea/*
 .env
+*.db
+*.json
+*.pyc
+*.txt
 config.json
