@@ -63,7 +63,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  border: 0px;
+  border: none;
   animation: rotateY 2s linear infinite;
 }
 
@@ -73,4 +73,15 @@ button {
   font-size: 40px;
   border-radius: 15px;
   background-color: #1E3368;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #14254a;
+}
+
+button:focus {
+  outline: none;
 }
