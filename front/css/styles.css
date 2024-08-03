@@ -29,12 +29,22 @@ body {
   border-radius: 5px;
 }
 
+@keyframes rotateY {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
 .starred {
   background-image: url('../assets/images/star.png'); /* Путь к локальному изображению */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  border: 0px
+  border: 0px;
+  animation: rotateY 2s linear infinite; /* Анимация вращения */
 }
 
 button {
