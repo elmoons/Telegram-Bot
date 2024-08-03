@@ -18,3 +18,13 @@ document.getElementById("colorButton").addEventListener("click", () => {
     }
   }
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+  var header = document.getElementById('headerText');
+  var text = header.textContent;
+  var spans = text.split('').map(function(char, index) {
+    var delay = Math.random() * 2;
+    return `<span style="animation-delay: ${delay}s">${char}</span>`;
+    });
+  header.innerHTML = spans.join('');
+});
