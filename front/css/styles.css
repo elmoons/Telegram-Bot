@@ -29,11 +29,12 @@ body {
   border-radius: 5px;
 }
 
-.colored {
+.starred {
   background-image: url('../assets/images/star.png'); /* Путь к локальному изображению */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  border: 0px
 }
 
 button {
@@ -41,4 +42,5 @@ button {
   padding: 10px 20px;
   font-size: 40px;
   border-radius: 15px;
+  background-color: #1E3368;
 }
