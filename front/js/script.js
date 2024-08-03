@@ -1,6 +1,6 @@
 document.getElementById("colorButton").addEventListener("click", () => {
   const squares = document.querySelectorAll(".square");
-  const numberOfSquaresToColor = 5;
+  const numberOfSquaresToColor = Math.random() < 0.5 ? 4 : 5;
   const selectedIndices = [];
 
   squares.forEach(square => square.classList.remove("colored"));

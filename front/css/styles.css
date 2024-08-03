@@ -4,9 +4,16 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
+  background-image: url('../assets/images/background-image.jpg');
   background-color: #2c2c2c;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: white;
+  margin: 0;
 }
+
 
 .grid-container {
   display: grid;
@@ -17,16 +24,21 @@ body {
 .square {
   width: 50px;
   height: 50px;
-  background-color: white;
+  background: linear-gradient(0deg, #04596C, #02C3F4);
   border: 1px solid #333;
+  border-radius: 5px;
 }
 
 .colored {
-  background-color: green;
+  background-image: url('../assets/images/star.png'); /* Путь к локальному изображению */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 button {
-  margin-top: 20px;
+  margin-top: 100px;
   padding: 10px 20px;
-  font-size: 18px;
+  font-size: 40px;
+  border-radius: 15px;
 }
