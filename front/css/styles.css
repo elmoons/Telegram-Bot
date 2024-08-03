@@ -39,12 +39,12 @@ body {
 }
 
 .starred {
-  background-image: url('../assets/images/star.png'); /* Путь к локальному изображению */
+  background-image: url('../assets/images/star.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   border: 0px;
-  animation: rotateY 2s linear infinite; /* Анимация вращения */
+  animation: rotateY 2s linear infinite;
 }
 
 button {

@@ -5,10 +5,9 @@ document.getElementById("colorButton").addEventListener("click", () => {
 
   squares.forEach(square => {
     square.classList.remove("starred");
-    // Удаляем анимацию, сбрасываем стили
     square.style.animation = 'none';
-    square.offsetHeight; // Это вызовет перерисовку элемента
-    square.style.animation = ''; // Сбросить анимацию
+    square.offsetHeight;
+    square.style.animation = '';
   });
 
   while (selectedIndices.length < numberOfSquaresToColor) {
