@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
   header.innerHTML = spans.join('');
 });
 
-document.getElementById("colorButton").addEventListener("click", () => {
+document.getElementById("starButton").addEventListener("click", () => {
   const squares = document.querySelectorAll(".square");
   const numberOfSquaresToColor = Math.random() < 0.5 ? 4 : 5;
   const selectedIndices = [];
