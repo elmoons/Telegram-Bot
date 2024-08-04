@@ -85,3 +85,27 @@ button:hover {
 button:focus {
   outline: none;
 }
+
+.button-arrow {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.button-arrow:hover {
+    background-color: #45a049;
+}
+
+.value {
+    font-size: 24px;
+    min-width: 50px;
+    text-align: center;
+}
