@@ -43,7 +43,10 @@ document.addEventListener('DOMContentLoaded', function () {
   header.innerHTML = spans.join('');
 });
 
+const starButton = document.getElementById('starButton');
+
 document.getElementById("starButton").addEventListener("click", () => {
+  starButton.disabled = true;
   const squares = document.querySelectorAll(".square");
   const numberOfSquaresToColor = Math.random() < 0.5 ? 4 : 5;
   const selectedIndices = [];
@@ -64,6 +67,9 @@ document.getElementById("starButton").addEventListener("click", () => {
   selectedIndices.forEach((index, i) => {
     setTimeout(() => {
       squares[index].classList.add('starred');
+      if (i === selectedIndices.length - 1) {
+        starButton.disabled = false; // Включаем кнопку после завершения анимации
+      }
     }, i * 1000);
   });
 });
