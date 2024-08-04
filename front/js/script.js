@@ -68,7 +68,7 @@ document.getElementById("starButton").addEventListener("click", () => {
     setTimeout(() => {
       squares[index].classList.add('starred');
       if (i === selectedIndices.length - 1) {
-        starButton.disabled = false; // Включаем кнопку после завершения анимации
+        starButton.disabled = false;
       }
     }, i * 1000);
   });
