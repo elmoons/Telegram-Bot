@@ -1,4 +1,5 @@
 body {
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -127,6 +128,7 @@ button:focus {
 
 .number-selector-text
 {
+  letter-spacing: 8px;
   font-weight: 700;
   margin-top: 50px;
   font-size: 18px;
