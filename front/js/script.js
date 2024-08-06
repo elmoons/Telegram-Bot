@@ -1,31 +1,31 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const container = document.querySelector('.grid-container');
+document.addEventListener("DOMContentLoaded", () => {
+  const container = document.querySelector(".grid-container");
   const numSquares = 25;
   const stars = [];
 
   for (let i = 0; i < numSquares; i++) {
-    const square = document.createElement('div');
-    square.classList.add('square');
+    const square = document.createElement("div");
+    square.classList.add("square");
     container.appendChild(square);
   }
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-  const leftArrow = document.getElementById('left-arrow');
-  const rightArrow = document.getElementById('right-arrow');
-  const numberDisplay = document.getElementById('number-display');
+document.addEventListener("DOMContentLoaded", () => {
+  const leftArrow = document.getElementById("left-arrow");
+  const rightArrow = document.getElementById("right-arrow");
+  const numberDisplay = document.getElementById("number-display");
 
   const values = [1, 3, 5];
   let index = 0;
 
-  leftArrow.addEventListener('click', () => {
+  leftArrow.addEventListener("click", () => {
     if (index > 0) {
       index--;
       numberDisplay.textContent = values[index];
     }
   });
 
-  rightArrow.addEventListener('click', () => {
+  rightArrow.addEventListener("click", () => {
     if (index < values.length - 1) {
       index++;
       numberDisplay.textContent = values[index];
@@ -33,8 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-  var header = document.getElementById('headerText');
+document.addEventListener("DOMContentLoaded", function () {
+  var header = document.getElementById('header-text');
   var text = header.textContent;
   var spans = text.split('').map(function (char, index) {
     var delay = Math.random() * 2;
@@ -43,9 +43,9 @@ document.addEventListener('DOMContentLoaded', function () {
   header.innerHTML = spans.join('');
 });
 
-const starButton = document.getElementById('starButton');
+const starButton = document.getElementById("star-button");
 
-document.getElementById("starButton").addEventListener("click", () => {
+document.getElementById("star-button").addEventListener("click", () => {
   starButton.disabled = true;
   const squares = document.querySelectorAll(".square");
   const numberOfSquaresToColor = Math.random() < 0.5 ? 4 : 5;
@@ -53,9 +53,9 @@ document.getElementById("starButton").addEventListener("click", () => {
 
   squares.forEach(square => {
     square.classList.remove("starred");
-    square.style.animation = 'none';
+    square.style.animation = "none";
     square.offsetHeight;
-    square.style.animation = '';
+    square.style.animation = "";
   });
 
   while (selectedIndices.length < numberOfSquaresToColor) {
@@ -66,7 +66,7 @@ document.getElementById("starButton").addEventListener("click", () => {
   }
   selectedIndices.forEach((index, i) => {
     setTimeout(() => {
-      squares[index].classList.add('starred');
+      squares[index].classList.add("starred");
       if (i === selectedIndices.length - 1) {
         starButton.disabled = false;
       }
