@@ -6,12 +6,14 @@ document.addEventListener("DOMContentLoaded", () => {
     en: {
         headerText: "Text",
         numberSelectorText: "AMOUNT OF CUBES",
-        button: "Русский"
+        languageButton: "Русский",
+        starButton: "Start"
     },
     ru: {
         headerText: "Текст",
         numberSelectorText: "КОЛ-ВО КВАДРАТОВ",
-        button: "English"
+        languageButton: "English",
+        starButton: "Старт"
     }
   };
   
@@ -26,7 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
   function setLanguage(language) {
     document.getElementById('header-text').innerText = translations[language].headerText;
     document.getElementById('number-selector-text').innerText = translations[language].numberSelectorText;
-    document.getElementById('language-button').innerText = translations[language].button;
+    document.getElementById('language-button').innerText = translations[language].languageButton;
+    document.getElementById('star-button').innerText = translations[language].starButton;
     localStorage.setItem('language', language);
   }
   
