@@ -7,13 +7,13 @@ document.addEventListener("DOMContentLoaded", () => {
         headerText: "Text",
         numberSelectorText: "AMOUNT OF CUBES",
         languageButton: "Русский",
-        starButton: "Start"
+        startButton: "Start"
     },
     ru: {
         headerText: "Текст",
         numberSelectorText: "КОЛ-ВО КВАДРАТОВ",
         languageButton: "English",
-        starButton: "Старт"
+        startButton: "Старт"
     }
   };
   
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('header-text').innerText = translations[language].headerText;
     document.getElementById('number-selector-text').innerText = translations[language].numberSelectorText;
     document.getElementById('language-button').innerText = translations[language].languageButton;
-    document.getElementById('star-button').innerText = translations[language].starButton;
+    document.getElementById('start-button').innerText = translations[language].startButton;
     localStorage.setItem('language', language);
   }
   

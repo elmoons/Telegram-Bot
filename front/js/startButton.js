@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-    setupStarButton();
+    setupStartButton();
   });
   
-  function setupStarButton() {
-    const starButton = document.getElementById("star-button");
+  function setupStartButton() {
+    const starButton = document.getElementById("start-button");
   
     starButton.addEventListener("click", () => {
       starButton.disabled = true;
