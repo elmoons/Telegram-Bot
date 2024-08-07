@@ -1,12 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
     setupStartButton();
   });
-  
+
+const starButton = document.getElementById("start-button");
+const leftArrow = document.getElementById("left-arrow");
+const rightArrow = document.getElementById("right-arrow");
+
   function setupStartButton() {
-    const starButton = document.getElementById("start-button");
-  
     starButton.addEventListener("click", () => {
-      starButton.disabled = true;
+      DisableButtons();
       const squares = document.querySelectorAll(".square");
       const numberOfSquaresToColor = Math.random() < 0.5 ? 4 : 5;
       const selectedIndices = [];
@@ -28,9 +30,22 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
           squares[index].classList.add("starred");
           if (i === selectedIndices.length - 1) {
-            starButton.disabled = false;
+            EnableButtons();
           }
         }, i * 1000);
       });
     });
+  }
+
+  function DisableButtons()
+  {
+    starButton.disabled = true;
+    leftArrow.disabled = true;
+    rightArrow.disabled = true;
+  }
+  function EnableButtons()
+  {
+    starButton.disabled = false;
+    leftArrow.disabled = false;
+    rightArrow.disabled = false;
   }

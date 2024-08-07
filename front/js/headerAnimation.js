@@ -1,4 +1,3 @@
-// headerAnimation.js
 document.addEventListener("DOMContentLoaded", () => {
     executeHeaderTextAnimation();
   });
