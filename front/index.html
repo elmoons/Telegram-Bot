@@ -5,11 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Случайные квадраты</title>
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/language-styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div>
-    <button id="language-button" class="language-button" onclick="toggleLanguage()">Русский</button>
+  <div class="language-container">
+    <button id="language-btn">language: RU</button>
+    <div id="language-menu">
+      <button onclick="setLanguage('RU')">Русский</button>
+      <button onclick="setLanguage('EN')">English</button>
+    </div>
   </div>
   <div class="header" id="header-text">Текст</div>
   <div class="outer-square">

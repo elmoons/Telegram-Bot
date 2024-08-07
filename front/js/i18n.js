@@ -1,40 +1,50 @@
 document.addEventListener("DOMContentLoaded", () => {
-    initializeLanguage();
-  });
-  
-  const translations = {
-    en: {
-        headerText: "Text",
-        numberSelectorText: "AMOUNT OF CUBES",
-        languageButton: "Русский",
-        startButton: "Start"
+  initializeLanguage();
+});
+
+function initializeLanguage() {
+  setLanguage(localStorage.getItem('language') || 'EN');
+}
+
+const languageBtn = document.getElementById('language-btn');
+const languageMenu = document.getElementById('language-menu');
+const headerText = document.getElementById('header-text');
+const numberSelectorText = document.getElementById('number-selector-text');
+const startButton = document.getElementById('start-button');
+
+const texts = {
+    RU: {
+        header: 'Текст',
+        numberSelector: 'КОЛ-ВО КВАДРАТОВ',
+        languageBtn: 'language: RU',
+        startButton: 'Старт'
     },
-    ru: {
-        headerText: "Текст",
-        numberSelectorText: "КОЛ-ВО КВАДРАТОВ",
-        languageButton: "English",
-        startButton: "Старт"
+    EN: {
+        header: 'Text',
+        numberSelector: 'NUMBER OF SQUARES',
+        languageBtn: 'language: EN',
+        startButton: 'Start'
+    },
+};
+
+languageBtn.addEventListener('click', () => {
+    const isVisible = languageMenu.style.display === 'block';
+    languageMenu.style.display = isVisible ? 'none' : 'block';
+});
+
+function setLanguage(lang) {
+    headerText.textContent = texts[lang].header;
+    numberSelectorText.textContent = texts[lang].numberSelector;
+    startButton.textContent = texts[lang].startButton;
+    languageBtn.textContent = texts[lang].languageBtn;
+
+    languageMenu.style.display = 'none';
+    localStorage.setItem('language', lang);
+    executeHeaderTextAnimation();
+}
+
+document.addEventListener('click', (event) => {
+    if (!languageBtn.contains(event.target) && !languageMenu.contains(event.target)) {
+        languageMenu.style.display = 'none';
     }
-  };
-  
-  let currentLanguage = 'en';
-  
-  function toggleLanguage() {
-    currentLanguage = currentLanguage === 'en' ? 'ru' : 'en';
-    setLanguage(currentLanguage);
-    executeHeaderTextAnimation();
-  }
-  
-  function setLanguage(language) {
-    document.getElementById('header-text').innerText = translations[language].headerText;
-    document.getElementById('number-selector-text').innerText = translations[language].numberSelectorText;
-    document.getElementById('language-button').innerText = translations[language].languageButton;
-    document.getElementById('start-button').innerText = translations[language].startButton;
-    localStorage.setItem('language', language);
-  }
-  
-  function initializeLanguage() {
-    currentLanguage = localStorage.getItem('language') || 'en';
-    setLanguage(currentLanguage);
-    executeHeaderTextAnimation();
-  }
+});
