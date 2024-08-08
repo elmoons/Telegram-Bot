@@ -16,7 +16,7 @@ const texts = {
     RU: {
         header: 'Текст',
         numberSelector: 'КОЛ-ВО КВАДРАТОВ',
-        languageBtn: 'language: RU',
+        languageBtn: 'Язык: RU',
         startButton: 'Старт'
     },
     EN: {
