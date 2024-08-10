@@ -26,7 +26,6 @@ class UserRepository:
         cursor = connection.cursor()
         cursor.execute('SELECT language FROM Users WHERE user_id = ?', (user_id,))
         result = cursor.fetchall()
-        print(result)
         connection.commit()
         connection.close()
         if len(result) == 0:

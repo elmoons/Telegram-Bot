@@ -1,7 +1,7 @@
 import asyncio
 
 from aiogram.types import BotCommand
-from backend.tgbot.handlers import command_start, command_webapp
+from backend.tgbot.handlers import command_start
 from loader import dispatcher, bot, app_database
 
 
@@ -13,7 +13,7 @@ async def set_default_commands():
 
 
 def include_routers():
-    routers = [command_webapp.router, command_start.router]
+    routers = [command_start.router]
     for router in routers:
         dispatcher.include_router(router)
 

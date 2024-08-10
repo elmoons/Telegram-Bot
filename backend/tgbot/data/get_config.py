@@ -10,8 +10,8 @@ def get_config(path):
             config = {
                 "bot_token": "BOT_TOKEN",
                 "group_chat_id": "@group_chat_id",
-                "group_chat_url": "group_chat_url",
-                "web_app_url": "web_app_url"
+                "group_chat_url": "https://t.me/group_chat_url",
+                "web_app_url": "https://web_app_url"
             }
             json.dump(config, config_path)
             print(f"Не нашел файл {path}, в следствии чего он был создан, "
