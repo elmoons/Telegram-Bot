@@ -13,17 +13,6 @@ router = Router()
 state_language = "language"
 
 
-text1 = {
-    "ru": "Откройте веб-приложение",
-    "en": "Open the web application"
-}
-
-text2 = {
-    "ru": "Для продолжения, вступите в группу и проверьте подписку",
-    "en": "To continue, please join the group and check your subscription."
-}
-
-
 @router.callback_query(F.data == "check_subscription")
 async def handle_check_subscription(callback_query: types.CallbackQuery):
     user_id = callback_query.from_user.id
@@ -31,13 +20,23 @@ async def handle_check_subscription(callback_query: types.CallbackQuery):
     if language is None:
         language = callback_query.from_user.language_code
     if await is_subscribed.check(user_id):
+        text = {
+            "ru": "Откройте веб-приложение",
+            "en": "Open the web application"
+        }
+
         await callback_query.message.edit_text(
-            text1.get(language, text1["en"]),
+            text.get(language, text["en"]),
             reply_markup=make_keyboard.get_web_app_inline_keyboard_markup(language))
     else:
+        text = {
+            "ru": "Для продолжения, вступите в группу и проверьте подписку",
+            "en": "To continue, please join the group and check your subscription."
+        }
+
         await callback_query.message.delete()
         await callback_query.message.answer(
-            text2[language],
+            text.get(language, text["en"]),
             reply_markup=make_keyboard.get_inline_keyboard_markup_for_subscription(language))
 
 
