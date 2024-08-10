@@ -24,7 +24,7 @@ async def set_language(callback_query: types.CallbackQuery, state: FSMContext):
     if language is None:
         language = callback_query.message.from_user.language_code
 
-    await callback_query.message.answer(
+    await callback_query.message.edit_text(
         text.get(language, text["en"]),
         reply_markup=make_keyboard.get_languages_inline_keyboard_markup())
     await state.set_state(state_language)
