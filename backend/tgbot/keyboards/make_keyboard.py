@@ -3,7 +3,7 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 from backend.tgbot.data.config import GROUP_CHAT_URL, WEB_APP_URL
 
 
-def get_startup_inline_keyboard_markup(language: str) -> InlineKeyboardMarkup:
+def get_inline_keyboard_markup_for_subscription(language: str) -> InlineKeyboardMarkup:
     labels = {
         "ru": {"join_group": "Вступить в группу", "check_subscription": "Проверить подписку"},
         "en": {"join_group": "Join the group", "check_subscription": "Check subscription"}
