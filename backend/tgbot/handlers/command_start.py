@@ -13,6 +13,23 @@ router = Router()
 state_language = "language"
 
 
+@router.callback_query(F.data == "сhange_language")
+async def set_language(callback_query: types.CallbackQuery, state: FSMContext):
+    text = {
+        "ru": "Выберите язык:",
+        "en": "Select language:"
+    }
+
+    language = await user_repository.get_language_or_none(callback_query.message.from_user.id)
+    if language is None:
+        language = callback_query.message.from_user.language_code
+
+    await callback_query.message.answer(
+        text.get(language, text["en"]),
+        reply_markup=make_keyboard.get_languages_inline_keyboard_markup())
+    await state.set_state(state_language)
+
+
 @router.callback_query(F.data == "check_subscription")
 async def handle_check_subscription(callback_query: types.CallbackQuery):
     user_id = callback_query.from_user.id
@@ -21,13 +38,13 @@ async def handle_check_subscription(callback_query: types.CallbackQuery):
         language = callback_query.from_user.language_code
     if await is_subscribed.check(user_id):
         text = {
-            "ru": "Откройте веб-приложение",
-            "en": "Open the web application"
+            "ru": "Меню",
+            "en": "Main menu"
         }
 
         await callback_query.message.edit_text(
             text.get(language, text["en"]),
-            reply_markup=make_keyboard.get_web_app_inline_keyboard_markup(language))
+            reply_markup=make_keyboard.get_menu_inline_keyboard_markup(language))
     else:
         text = {
             "ru": "Для продолжения, вступите в группу и проверьте подписку",

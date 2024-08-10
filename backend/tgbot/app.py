@@ -8,7 +8,6 @@ from loader import dispatcher, bot, app_database
 async def set_default_commands():
     await bot.set_my_commands([
         BotCommand(command="start", description="start bot"),
-        BotCommand(command="webapp", description="webapp"),
     ])
 
 

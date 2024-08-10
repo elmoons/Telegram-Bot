@@ -15,14 +15,16 @@ def get_inline_keyboard_markup_for_subscription(language: str) -> InlineKeyboard
     return builder.as_markup()
 
 
-def get_web_app_inline_keyboard_markup(language: str) -> InlineKeyboardMarkup:
+def get_menu_inline_keyboard_markup(language: str) -> InlineKeyboardMarkup:
     labels = {
-        "ru": "Перейти",
-        "en": "Open"
+        "ru": {"start": "Старт", "сhange_language": "Сменить язык", "go_to_channel": "Перейти в канал"},
+        "en": {"start": "Start", "сhange_language": "Change language", "go_to_channel": "Go to channel"},
     }
 
     builder = InlineKeyboardBuilder()
-    builder.row(InlineKeyboardButton(text=labels[language], web_app=WebAppInfo(url=WEB_APP_URL)))
+    builder.row(InlineKeyboardButton(text=labels[language]["start"], web_app=WebAppInfo(url=WEB_APP_URL)))
+    builder.row(InlineKeyboardButton(text=labels[language]["сhange_language"], callback_data="сhange_language"))
+    builder.row(InlineKeyboardButton(text=labels[language]["go_to_channel"], url=GROUP_CHAT_URL))
     return builder.as_markup()
 
 
