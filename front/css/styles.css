@@ -148,13 +148,13 @@ button:focus {
   }
   
   .grid-container {
-    grid-template-columns: repeat(5, 40px);
+    grid-template-columns: repeat(5, 45px);
     grid-gap: 7px;
   }
   
   .square {
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
   }
 
   .outer-square {
