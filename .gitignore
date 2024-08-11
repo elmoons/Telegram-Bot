@@ -4,5 +4,4 @@
 *.db
 *.json
 *.pyc
-*.txt
 appsettings.json
