@@ -9,6 +9,7 @@ def get_config(path):
         with open(path, 'w') as config_path:
             config = {
                 "bot_token": "BOT_TOKEN",
+                "admin_user_id": "ADMIN_USER_ID",
                 "group_chat_id": "@group_chat_id",
                 "group_chat_url": "https://t.me/group_chat_url",
                 "web_app_url": "https://web_app_url"
