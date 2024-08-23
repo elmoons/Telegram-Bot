@@ -40,7 +40,6 @@ async def process_check_subscription(callback_query: types.CallbackQuery):
     if language is None:
         language = callback_query.from_user.language_code
 
-    is_subscribed = await check_subscription(user_id)
 
     if is_subscribed:
         texts = {
@@ -165,17 +164,16 @@ async def start_app_if_deposited(callback_query: types.CallbackQuery, language: 
         return
 
     text = {
-        "ru_start_app": "Ваш депозит уже внесен. Вы можете запустить приложение прямо сейчас:",
-        "en_start_app": "Your deposit has been received. You can start the application now:"
+        "ru_start_app": "Теперь вы можете запустить приложение, нажав на кнопку Старт в главном меню!",
+        "en_start_app": "Now you can start the application by clicking on the Start button in the main menu!"
     }
 
-    # Создаем кнопку "Старт"
-    builder = InlineKeyboardBuilder()
-    builder.add(
-        InlineKeyboardButton(text="Старт" if language == "ru" else "Start", web_app=WebAppInfo(url=WEB_APP_URL)))
+    # Отправляем сообщение о запуске приложения
+    await callback_query.message.answer(text[f"{language}_start_app"])
 
-    # Отправляем сообщение с кнопкой
-    await callback_query.message.answer(text[f"{language}_start_app"], reply_markup=builder.as_markup())
+    # Отправляем главное меню
+    await handle_check_subscription(callback_query)
+
 
 
 @router.callback_query(F.data == "check_registration")
@@ -218,9 +216,9 @@ async def callback_query(call: CallbackQuery):
                 builder.adjust(1, 1)
 
                 await call.message.answer(text[f"{language}_registered"], reply_markup=builder.as_markup())
+
         else:
             await call.answer(text[f"{language}_not_registered"], show_alert=True)
-
 
 @router.callback_query(F.data == "check_deposit")
 async def callback_query(call: CallbackQuery):
@@ -239,8 +237,8 @@ async def callback_query(call: CallbackQuery):
         "en_deposit_success": "You have successfully deposited {amount} RUB.",
         "ru_no_deposit": "Депозит не найден.",
         "en_no_deposit": "Deposit not found.",
-        "ru_start_app": "Теперь вы можете запустить приложение:",
-        "en_start_app": "You can now start the application:"
+        "ru_start_app": "Теперь вы можете запустить приложение, нажав на кнопку Старт в главном меню!",
+        "en_start_app": "Now you can start the application by clicking on the Start button in the main menu!"
     }
 
     if call.data == "check_deposit":
@@ -248,18 +246,13 @@ async def callback_query(call: CallbackQuery):
         user = cursor.fetchone()
 
         if user and float(user[0]) > 0:
+            # Успешное пополнение
             await call.message.answer(text[f"{language}_deposit_success"].format(amount=user[0]))
 
-            # Создаем кнопку "Старт"
-            builder = InlineKeyboardBuilder()
-            builder.add(InlineKeyboardButton(text="Старт" if language == "ru" else "Start",
-                                             web_app=WebAppInfo(url=WEB_APP_URL)))
-
-            # Отправляем кнопку пользователю
-            await call.message.answer(text[f"{language}_start_app"], reply_markup=builder.as_markup())
+            # Показываем главное меню сразу после пополнения депозита
+            await handle_check_subscription(call)
         else:
             await call.answer(text[f"{language}_no_deposit"], show_alert=True)
-
 
 @router.callback_query(F.data == "сhange_language")
 async def set_language(callback_query: types.CallbackQuery, state: FSMContext):
@@ -292,9 +285,7 @@ async def handle_check_subscription(callback_query: types.CallbackQuery):
 
         await callback_query.message.edit_text(
             text.get(language, text["en"]),
-            reply_markup=await make_keyboard.get_menu_inline_keyboard_markup(user_id, language)
-            # Передаем user_id и language
-        )
+            reply_markup=await make_keyboard.get_menu_inline_keyboard_markup(user_id, language))
     else:
         text = {
             "ru": "Для продолжения, вступите в группу и проверьте подписку",
@@ -304,9 +295,8 @@ async def handle_check_subscription(callback_query: types.CallbackQuery):
         await callback_query.message.delete()
         await callback_query.message.answer(
             text.get(language, text["en"]),
-            reply_markup=await make_keyboard.get_inline_keyboard_markup_for_subscription(user_id, language)
-            # Передаем user_id и language
-        )
+            reply_markup=make_keyboard.get_inline_keyboard_markup_for_subscription(language))
+
 
 
 @router.message(IsChatPrivate(), Command("start"))
@@ -321,14 +311,19 @@ async def command_start(message: types.Message, state: FSMContext):
     if language is None:
         language = message.from_user.language_code
 
-    await message.answer(
-        text.get(language, text["en"]),
-        reply_markup=make_keyboard.get_languages_inline_keyboard_markup())
+    # Определяем URL изображения в зависимости от языка
+    await bot.send_photo(chat_id=message.chat.id, photo="https://habrastorage.org/getpro/moikrug/uploads/company/100/008/082/6/logo/medium_f3ccdd27d2000e3f9255a7e3e2c48800.jpg", caption=text[language],
+                         reply_markup=make_keyboard.get_languages_inline_keyboard_markup())
+    # await message.answer(
+    #     text.get(language, text["en"]),
+    #     reply_markup=make_keyboard.get_languages_inline_keyboard_markup()
+    # )
     await state.set_state(state_language)
 
 
 @router.callback_query(StateFilter(state_language))
 async def set_language(callback_query: types.CallbackQuery, state: FSMContext):
+    print(callback_query)
     language = callback_query.data
 
     await user_repository.set_or_update_language(callback_query.from_user.id, language)

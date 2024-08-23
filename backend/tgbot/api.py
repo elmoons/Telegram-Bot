@@ -111,11 +111,36 @@ async def postback(request: Request, cursor=Depends(get_db)):
 
     return {"status": "error", "message": "No data provided"}
 
+#
+# # Запуск приложения
+# if __name__ == "__main__":
+#     import uvicorn
+#
+#     uvicorn.run(app, host="0.0.0.0", port=8000)
+import sqlite3
 
-# Запуск приложения
-if __name__ == "__main__":
-    import uvicorn
 
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+def view_users_postback():
+    with sqlite3.connect('database.db') as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM UsersPostback")
+
+        # Получаем все строки результата
+        rows = cursor.fetchall()
+
+        # Проверяем, есть ли записи и выводим их
+        if not rows:
+            print("Таблица UsersPostback пуста.")
+        else:
+            for row in rows:
+                print(row)
 
 
+
+view_users_postback()
+def clear_users_postback():
+    with sqlite3.connect('database.db') as conn:
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM UsersPostback")
+        conn.commit()
+clear_users_postback()  # Очистка таблицы перед добавлением новых данных

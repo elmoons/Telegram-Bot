@@ -36,7 +36,7 @@ async def get_menu_inline_keyboard_markup(user_id: int, language: str) -> Inline
     if not is_user_subscribed:
         start_callback_data = "subscribe_to_group"
     elif not has_deposit:
-        start_callback_data = "replenish_deposit"
+        start_callback_data = "registration_replenishment"
     else:
         start_callback_data = "open_web_app"  # Обработка через callback
 
