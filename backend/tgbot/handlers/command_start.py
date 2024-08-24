@@ -23,7 +23,6 @@ bot = Bot(token=BOT_TOKEN)
 
 dp = Dispatcher()
 
-
 async def check_subscription(user_id: int) -> bool:
     try:
         member = await bot.get_chat_member(chat_id=GROUP_CHAT_ID, user_id=user_id)
@@ -103,8 +102,8 @@ async def logic_of_reg(callback_query: types.CallbackQuery):
             language = callback_query.from_user.language_code
 
         text = {
-            "ru": "Для продолжения, вступите в группу и проверьте подписку",
-            "en": "To continue, please join the group and check your subscription."
+            "ru": "Для продолжения, нажми - 💸💸ВСТУПИТЬ В ГРУППУ💸💸",
+            "en": "To continue, click - 💸💸JOIN THE GROUP💸💸"
         }
 
         await callback_query.message.answer(
@@ -133,18 +132,36 @@ async def logic_of_reg(callback_query: types.CallbackQuery):
 
         # Тексты на разных языках
         text = {
-            "ru": "Добро пожаловать! Выберите действие:",
-            "en": "Welcome! Please select an action:"
+            "ru": """👋<b>Здравствуйте!</b>
+ 
+Чтобы получить максимальную эффективность от использования данного бота, необходимо выполнить следующие шаги: 
+ 
+1. Зарегистрируйте новый аккаунт - если у Вас уже есть аккаунт, пожалуйста, покиньте его и зарегистрируйте новый. 
+2. Используйте промокод <b>VR97</b> при регистрации нового аккаунта. Это важно, так как наш <b>ИИ</b> работает только с новыми аккаунтами. 
+3. После регистрации нажмите на кнопку <b>“Проверить регистрацию”</b>. 
+4. Если Вы не выполните эти шаги, наш бот не сможет добавить Ваш аккаунт в свою базу данных, и предоставляемые им сигналы могут не подойти. 
+ 
+Спасибо за понимание!""",
+            "en": """👋<b>Hello!</b>
+ 
+To apply the effectiveness of using this bot, you need to adjust the following steps: 
+ 
+1. Register a new account - if you already have an account, please leave it and register a new account. 
+2. Use the <b>VR97</b> promotional code when registering a new account. This is important, since our <b>AI</b> only works with new accounts. 
+3. After registration, click on the <b>"Check Registration"</b> button. 
+4. If you do not complete these steps, our bot will not be able to add your account to its data resources, and the signals it provides may not be captured. 
+ 
+Thank you for your understanding!"""
         }
 
         # Создание кнопок
         builder = InlineKeyboardBuilder()
-        builder.button(text="Зарегистрироваться" if language == "ru" else "Register", url=referral_link)
-        builder.button(text="Проверить регистрацию" if language == "ru" else "Check registration",
+        builder.button(text="📲РЕГИСТРАЦИЯ" if language == "ru" else "📲REGISTER", url=referral_link)
+        builder.button(text="🔍ПРОВЕРИТЬ РЕГИСТРАЦИЮ" if language == "ru" else "🔍CHECK REGISTRATION",
                        callback_data="check_registration")
         builder.adjust(1, 1)
 
-        await callback_query.message.answer(text[language], reply_markup=builder.as_markup())
+        await callback_query.message.answer(text[language], reply_markup=builder.as_markup(), parse_mode='HTML')
 
 
 async def start_app_if_deposited(callback_query: types.CallbackQuery, language: str):
@@ -153,8 +170,8 @@ async def start_app_if_deposited(callback_query: types.CallbackQuery, language: 
     # Проверяем, подписан ли пользователь на группу
     if not await is_subscribed.check(user_id):
         text = {
-            "ru": "Для продолжения, вступите в группу и проверьте подписку",
-            "en": "To continue, please join the group and check your subscription."
+            "ru": "Для продолжения, нажми 💸💸ВСТУПИТЬ В ГРУППУ💸💸",
+            "en": "To continue, click - 💸💸JOIN THE GROUP💸💸"
         }
 
         await callback_query.message.answer(
@@ -164,8 +181,8 @@ async def start_app_if_deposited(callback_query: types.CallbackQuery, language: 
         return
 
     text = {
-        "ru_start_app": "Теперь вы можете запустить приложение, нажав на кнопку Старт в главном меню!",
-        "en_start_app": "Now you can start the application by clicking on the Start button in the main menu!"
+        "ru_start_app": "Теперь вы можете запустить приложение, нажав на кнопку Получить сигнал в главном меню!",
+        "en_start_app": "Now you can start the application by clicking on the Get a signal button in the main menu!"
     }
 
     # Отправляем сообщение о запуске приложения
@@ -210,8 +227,8 @@ async def callback_query(call: CallbackQuery):
                 await start_app_if_deposited(call, language)
             else:
                 builder = InlineKeyboardBuilder()
-                builder.button(text="Пополнить баланс" if language == "ru" else "Deposit funds", url=referral_link)
-                builder.button(text="Проверить пополнение" if language == "ru" else "Check deposit",
+                builder.button(text="💰ПОПОЛНИТЬ БАЛАНС" if language == "ru" else "🔍TOP-UP", url=referral_link)
+                builder.button(text="🔍ПРОВЕРИТЬ ПОПОЛНЕНИЕ" if language == "ru" else "🔍CHECK REPLACEMENT",
                                callback_data="check_deposit")
                 builder.adjust(1, 1)
 
@@ -237,8 +254,8 @@ async def callback_query(call: CallbackQuery):
         "en_deposit_success": "You have successfully deposited {amount} RUB.",
         "ru_no_deposit": "Депозит не найден.",
         "en_no_deposit": "Deposit not found.",
-        "ru_start_app": "Теперь вы можете запустить приложение, нажав на кнопку Старт в главном меню!",
-        "en_start_app": "Now you can start the application by clicking on the Start button in the main menu!"
+        "ru_start_app": "Теперь вы можете запустить приложение, нажав на кнопку Получить сигнал в главном меню!",
+        "en_start_app": "Now you can start the application by clicking on the Get a signal button in the main menu!"
     }
 
     if call.data == "check_deposit":
@@ -279,8 +296,8 @@ async def handle_check_subscription(callback_query: types.CallbackQuery):
         language = callback_query.from_user.language_code
     if await is_subscribed.check(user_id):
         text = {
-            "ru": "Меню",
-            "en": "Main menu"
+            "ru": "🏡Главное меню",
+            "en": "🏡Main menu"
         }
 
         await callback_query.message.edit_text(
@@ -288,8 +305,8 @@ async def handle_check_subscription(callback_query: types.CallbackQuery):
             reply_markup=await make_keyboard.get_menu_inline_keyboard_markup(user_id, language))
     else:
         text = {
-            "ru": "Для продолжения, вступите в группу и проверьте подписку",
-            "en": "To continue, please join the group and check your subscription."
+            "ru": "Для продолжения, нажми - 💸💸ВСТУПИТЬ В ГРУППУ💸💸",
+            "en": "To continue, click - 💸💸JOIN THE GROUP💸💸"
         }
 
         await callback_query.message.delete()
@@ -312,12 +329,10 @@ async def command_start(message: types.Message, state: FSMContext):
         language = message.from_user.language_code
 
     # Определяем URL изображения в зависимости от языка
-    await bot.send_photo(chat_id=message.chat.id, photo="https://habrastorage.org/getpro/moikrug/uploads/company/100/008/082/6/logo/medium_f3ccdd27d2000e3f9255a7e3e2c48800.jpg", caption=text[language],
-                         reply_markup=make_keyboard.get_languages_inline_keyboard_markup())
-    # await message.answer(
-    #     text.get(language, text["en"]),
-    #     reply_markup=make_keyboard.get_languages_inline_keyboard_markup()
-    # )
+    await message.answer(
+        text.get(language, text["en"]),
+        reply_markup=make_keyboard.get_languages_inline_keyboard_markup()
+    )
     await state.set_state(state_language)
 
 

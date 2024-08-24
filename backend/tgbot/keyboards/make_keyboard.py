@@ -8,8 +8,8 @@ from backend.tgbot.filters import is_subscribed
 
 def get_inline_keyboard_markup_for_subscription(language: str) -> InlineKeyboardMarkup:
     labels = {
-        "ru": {"join_group": "Вступить в группу", "check_subscription": "Проверить подписку"},
-        "en": {"join_group": "Join the group", "check_subscription": "Check subscription"}
+        "ru": {"join_group": "💸💸ВСТУПИТЬ В ГРУППУ💸💸", "check_subscription": "🔍ПРОВЕРИТЬ ПОДПИСКУ"},
+        "en": {"join_group": "💸💸JOIN THE GROUP💸💸", "check_subscription": "🔍CHECK SUBSCRIPTION"}
     }
 
     builder = InlineKeyboardBuilder()
@@ -20,8 +20,8 @@ def get_inline_keyboard_markup_for_subscription(language: str) -> InlineKeyboard
 
 async def get_menu_inline_keyboard_markup(user_id: int, language: str) -> InlineKeyboardMarkup:
     labels = {
-        "ru": {"start": "Старт", "сhange_language": "Сменить язык", "go_to_channel": "Перейти в канал", "tech_support": "Тех поддержка"},
-        "en": {"start": "Start", "сhange_language": "Change language", "go_to_channel": "Go to channel", "tech_support": "Tech support"},
+        "ru": {"start": "🕹Получить сигнал", "сhange_language": "🌐Сменить язык", "go_to_channel": "👥Перейти в канал", "tech_support": "🆘Тех поддержка"},
+        "en": {"start": "🕹Get a signal", "сhange_language": "🌐Change language", "go_to_channel": "👥Go to channel", "tech_support": "🆘Tech support"},
     }
 
     is_user_subscribed = await is_subscribed.check(user_id)
@@ -44,7 +44,7 @@ async def get_menu_inline_keyboard_markup(user_id: int, language: str) -> Inline
     builder.row(InlineKeyboardButton(text=labels[language]["go_to_channel"], url=GROUP_CHAT_URL))
     builder.row(
         InlineKeyboardButton(text=labels[language]["сhange_language"], callback_data="сhange_language"),
-        InlineKeyboardButton(text=labels[language]["tech_support"], url="https://t.me/stas_astapov")
+        InlineKeyboardButton(text=labels[language]["tech_support"], url="https://t.me/aristo_support")
     )
 
     return builder.as_markup()
@@ -53,6 +53,6 @@ async def get_menu_inline_keyboard_markup(user_id: int, language: str) -> Inline
 
 def get_languages_inline_keyboard_markup() -> InlineKeyboardMarkup:
     builder = InlineKeyboardBuilder()
-    builder.row(InlineKeyboardButton(text="Русский", callback_data="ru"))
-    builder.row(InlineKeyboardButton(text="English", callback_data="en"))
+    builder.row(InlineKeyboardButton(text="🇷🇺Русский", callback_data="ru"))
+    builder.row(InlineKeyboardButton(text="🏴󠁧󠁢󠁥󠁮󠁧󠁿English", callback_data="en"))
     return builder.as_markup()
