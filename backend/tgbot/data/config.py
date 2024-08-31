@@ -1,4 +1,6 @@
-from backend.tgbot.data.get_config import get_config
+import sys
+sys.path.append('..')
+from data.get_config import get_config
 
 config_file_name = "appsettings.json"
 config = get_config(config_file_name)

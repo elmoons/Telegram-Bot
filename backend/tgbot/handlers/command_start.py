@@ -1,5 +1,6 @@
 import sqlite3
-
+import sys
+sys.path.append('..')
 from aiogram import types, Router, F
 from aiogram.filters import Command, StateFilter
 from aiogram.types import CallbackQuery, WebAppInfo, InlineKeyboardButton
@@ -8,12 +9,12 @@ from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
 import asyncio
-from backend.tgbot.filters import is_subscribed
-from backend.tgbot.filters.is_private import IsChatPrivate
-from backend.tgbot.keyboards import make_keyboard
+from filters import is_subscribed
+from filters.is_private import IsChatPrivate
+from keyboards import make_keyboard
 from aiogram.fsm.context import FSMContext
-from backend.tgbot.data.config import WEB_APP_URL, BOT_TOKEN, GROUP_CHAT_ID
-from backend.tgbot.loader import user_repository
+from data.config import WEB_APP_URL, BOT_TOKEN, GROUP_CHAT_ID
+from loader import user_repository
 
 router = Router()
 
@@ -22,6 +23,7 @@ state_language = "language"
 bot = Bot(token=BOT_TOKEN)
 
 dp = Dispatcher()
+
 
 async def check_subscription(user_id: int) -> bool:
     try:
@@ -38,7 +40,6 @@ async def process_check_subscription(callback_query: types.CallbackQuery):
     language = await user_repository.get_language_or_none(user_id)
     if language is None:
         language = callback_query.from_user.language_code
-
 
     if is_subscribed:
         texts = {
@@ -128,29 +129,29 @@ async def logic_of_reg(callback_query: types.CallbackQuery):
         # Если депозит внесен, запускаем приложение
         await start_app_if_deposited(callback_query, language)
     else:
-        referral_link = f"https://1wfqtr.life/?open=register&p=owym&sub1={user_id}"
+        referral_link = f"https://1wfdnu.life/casino/list?open=register&p=j9ks&sub1={user_id}"
 
         # Тексты на разных языках
         text = {
             "ru": """👋<b>Здравствуйте!</b>
- 
+
 Чтобы получить максимальную эффективность от использования данного бота, необходимо выполнить следующие шаги: 
- 
+
 1. Зарегистрируйте новый аккаунт - если у Вас уже есть аккаунт, пожалуйста, покиньте его и зарегистрируйте новый. 
 2. Используйте промокод <b>VR97</b> при регистрации нового аккаунта. Это важно, так как наш <b>ИИ</b> работает только с новыми аккаунтами. 
 3. После регистрации нажмите на кнопку <b>“Проверить регистрацию”</b>. 
 4. Если Вы не выполните эти шаги, наш бот не сможет добавить Ваш аккаунт в свою базу данных, и предоставляемые им сигналы могут не подойти. 
- 
+
 Спасибо за понимание!""",
             "en": """👋<b>Hello!</b>
- 
+
 To apply the effectiveness of using this bot, you need to adjust the following steps: 
- 
+
 1. Register a new account - if you already have an account, please leave it and register a new account. 
 2. Use the <b>VR97</b> promotional code when registering a new account. This is important, since our <b>AI</b> only works with new accounts. 
 3. After registration, click on the <b>"Check Registration"</b> button. 
 4. If you do not complete these steps, our bot will not be able to add your account to its data resources, and the signals it provides may not be captured. 
- 
+
 Thank you for your understanding!"""
         }
 
@@ -192,7 +193,6 @@ async def start_app_if_deposited(callback_query: types.CallbackQuery, language: 
     await handle_check_subscription(callback_query)
 
 
-
 @router.callback_query(F.data == "check_registration")
 async def callback_query(call: CallbackQuery):
     user_id = call.from_user.id
@@ -217,7 +217,7 @@ async def callback_query(call: CallbackQuery):
         user = cursor.fetchone()
 
         if user:
-            referral_link = f"https://1wfqtr.life/?open=register&p=owym&sub1={user_id}"
+            referral_link = f"https://1wfdnu.life/casino/list?open=register&p=j9ks&sub1={user_id}"
 
             # Проверяем, внесен ли депозит
             cursor.execute("SELECT deposit FROM UsersPostback WHERE telegram_id = ?", (user_id,))
@@ -237,6 +237,7 @@ async def callback_query(call: CallbackQuery):
         else:
             await call.answer(text[f"{language}_not_registered"], show_alert=True)
 
+
 @router.callback_query(F.data == "check_deposit")
 async def callback_query(call: CallbackQuery):
     user_id = call.from_user.id
@@ -250,8 +251,6 @@ async def callback_query(call: CallbackQuery):
 
     # Тексты на разных языках
     text = {
-        "ru_deposit_success": "Вы успешно пополнили баланс на {amount} RUB.",
-        "en_deposit_success": "You have successfully deposited {amount} RUB.",
         "ru_no_deposit": "Депозит не найден.",
         "en_no_deposit": "Deposit not found.",
         "ru_start_app": "Теперь вы можете запустить приложение, нажав на кнопку Получить сигнал в главном меню!",
@@ -264,12 +263,12 @@ async def callback_query(call: CallbackQuery):
 
         if user and float(user[0]) > 0:
             # Успешное пополнение
-            await call.message.answer(text[f"{language}_deposit_success"].format(amount=user[0]))
 
             # Показываем главное меню сразу после пополнения депозита
             await handle_check_subscription(call)
         else:
             await call.answer(text[f"{language}_no_deposit"], show_alert=True)
+
 
 @router.callback_query(F.data == "сhange_language")
 async def set_language(callback_query: types.CallbackQuery, state: FSMContext):
@@ -313,7 +312,6 @@ async def handle_check_subscription(callback_query: types.CallbackQuery):
         await callback_query.message.answer(
             text.get(language, text["en"]),
             reply_markup=make_keyboard.get_inline_keyboard_markup_for_subscription(language))
-
 
 
 @router.message(IsChatPrivate(), Command("start"))

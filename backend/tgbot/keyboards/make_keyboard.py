@@ -1,9 +1,10 @@
 import sqlite3
-
+import sys
+sys.path.append('..')
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.utils.keyboard import InlineKeyboardBuilder
-from backend.tgbot.data.config import GROUP_CHAT_URL
-from backend.tgbot.filters import is_subscribed
+from data.config import GROUP_CHAT_URL
+from filters import is_subscribed
 
 
 def get_inline_keyboard_markup_for_subscription(language: str) -> InlineKeyboardMarkup:

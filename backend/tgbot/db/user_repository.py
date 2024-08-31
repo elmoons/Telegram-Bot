@@ -1,6 +1,8 @@
 import sqlite3
+import sys
 
-from backend.tgbot.db.app_database import AppDatabase
+sys.path.append('..')
+from db.app_database import AppDatabase
 
 
 class UserRepository:

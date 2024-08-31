@@ -1,6 +1,6 @@
 import asyncio
 from aiogram.types import BotCommand
-from backend.tgbot.handlers import command_start
+from handlers import command_start
 from loader import dispatcher, bot, app_database
 
 
