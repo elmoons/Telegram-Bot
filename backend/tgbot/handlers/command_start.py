@@ -160,6 +160,7 @@ Thank you for your understanding!"""
         builder.button(text="📲РЕГИСТРАЦИЯ" if language == "ru" else "📲REGISTER", url=referral_link)
         builder.button(text="🔍ПРОВЕРИТЬ РЕГИСТРАЦИЮ" if language == "ru" else "🔍CHECK REGISTRATION",
                        callback_data="check_registration")
+        builder.button(text="🏡ГЛАВНОЕ МЕНЮ" if language == "ru" else "🏡MAIN MENU", callback_data="main_menu")
         builder.adjust(1, 1)
 
         await callback_query.message.answer(text[language], reply_markup=builder.as_markup(), parse_mode='HTML')
@@ -230,12 +231,18 @@ async def callback_query(call: CallbackQuery):
                 builder.button(text="💰ПОПОЛНИТЬ БАЛАНС" if language == "ru" else "🔍TOP-UP", url=referral_link)
                 builder.button(text="🔍ПРОВЕРИТЬ ПОПОЛНЕНИЕ" if language == "ru" else "🔍CHECK REPLACEMENT",
                                callback_data="check_deposit")
+                builder.button(text="🏡ГЛАВНОЕ МЕНЮ" if language == "ru" else "🏡MAIN MENU", callback_data="main_menu")
                 builder.adjust(1, 1)
 
                 await call.message.answer(text[f"{language}_registered"], reply_markup=builder.as_markup())
 
         else:
             await call.answer(text[f"{language}_not_registered"], show_alert=True)
+
+
+@router.callback_query(F.data == "main_menu")
+async def callback_query(call: CallbackQuery):
+    await handle_check_subscription(call)
 
 
 @router.callback_query(F.data == "check_deposit")
@@ -262,9 +269,6 @@ async def callback_query(call: CallbackQuery):
         user = cursor.fetchone()
 
         if user and float(user[0]) > 0:
-            # Успешное пополнение
-
-            # Показываем главное меню сразу после пополнения депозита
             await handle_check_subscription(call)
         else:
             await call.answer(text[f"{language}_no_deposit"], show_alert=True)
@@ -326,7 +330,6 @@ async def command_start(message: types.Message, state: FSMContext):
     if language is None:
         language = message.from_user.language_code
 
-    # Определяем URL изображения в зависимости от языка
     await message.answer(
         text.get(language, text["en"]),
         reply_markup=make_keyboard.get_languages_inline_keyboard_markup()

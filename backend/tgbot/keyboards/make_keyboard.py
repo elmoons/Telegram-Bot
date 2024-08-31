@@ -51,7 +51,6 @@ async def get_menu_inline_keyboard_markup(user_id: int, language: str) -> Inline
     return builder.as_markup()
 
 
-
 def get_languages_inline_keyboard_markup() -> InlineKeyboardMarkup:
     builder = InlineKeyboardBuilder()
     builder.row(InlineKeyboardButton(text="🇷🇺Русский", callback_data="ru"))
