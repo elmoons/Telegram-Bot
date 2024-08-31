@@ -337,6 +337,7 @@ async def command_start(message: types.Message, state: FSMContext):
     await state.set_state(state_language)
 
 
+
 @router.callback_query(StateFilter(state_language))
 async def set_language(callback_query: types.CallbackQuery, state: FSMContext):
     print(callback_query)
